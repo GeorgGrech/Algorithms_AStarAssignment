@@ -53,7 +53,7 @@ public class Pathfinding : MonoBehaviour
                 if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) //If new path to this node is ideal
                 {
                     neighbour.gCost = newMovementCostToNeighbour; //Save the found (superior) gCost
-                    neighbour.hCost = GetDistance(neighbour, targetNode); //Get new hCost to target
+                    neighbour.hCost = GetDistance(neighbour, targetNode); //Get this node's hCost to target
                     neighbour.parent = currentNode; //Set parent, used to retrace our steps
 
                     neighbour.UpdateCostsVisual();

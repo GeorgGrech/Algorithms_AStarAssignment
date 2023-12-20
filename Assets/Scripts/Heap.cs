@@ -27,11 +27,11 @@ public class Heap<T> where T : IHeapItem<T>
         currentItemCount--;
         items[0] = items[currentItemCount];
         items[0].HeapIndex = 0;
-        SortDown(items[0]);
+        SortDown(items[0]); //Reorganize heap
         return firstItem;
     }
 
-    public void UpdateItem(T item)
+    public void UpdateItem(T item) //Updating can only decrease costs, so attempt SortUp
     {
         SortUp(item);
     }
@@ -49,7 +49,7 @@ public class Heap<T> where T : IHeapItem<T>
         return Equals(items[item.HeapIndex], item);
     }
 
-    void SortDown(T item)
+    void SortDown(T item) //Move item down until in correct position
     {
         while (true)
         {
@@ -60,11 +60,11 @@ public class Heap<T> where T : IHeapItem<T>
 
             if (childIndexLeft < currentItemCount) //Has at least one child
             {
-                swapIndex = childIndexLeft;
+                swapIndex = childIndexLeft; //Use left by default
 
                 if (childIndexRight < currentItemCount) //Has second child
                 {
-                    if (items[childIndexLeft].CompareTo(items[childIndexRight]) < 0) //if left has lower priority
+                    if (items[childIndexLeft].CompareTo(items[childIndexRight]) < 0) //if right has higher priority, use instead
                     {
                         swapIndex = childIndexRight;
                     }
@@ -86,7 +86,7 @@ public class Heap<T> where T : IHeapItem<T>
         }
     }
 
-    void SortUp(T item) //Swap node with parent
+    void SortUp(T item) //Move item up until in correct position
     {
         int parentIndex = (item.HeapIndex - 1) / 2;
         while (true)
@@ -94,7 +94,7 @@ public class Heap<T> where T : IHeapItem<T>
             T parentItem = items[parentIndex];
             if (item.CompareTo(parentItem) > 0)
             {
-                Swap(item, parentItem);
+                Swap(item, parentItem); //Swap node with parent
             }
             else
             {
